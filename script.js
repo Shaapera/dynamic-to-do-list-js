@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const taskInput = document.getElementById("task-input");
     const taskList = document.getElementById("task-list");
     function addTask() {
+        const taskText = taskInput.value.trim();
     
         if (taskText != "") {
             const taskListItem = document.createElement('li');
