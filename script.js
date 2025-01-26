@@ -33,4 +33,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     }
-})
+});
+
+addButton.addEventListener('DOMContentLoaded', addTask);
+taskInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        addTask();
+    }
+});
+
+function loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem('task');
+    if (storedTasks) {
+        return JSON.parse(storedTasks);
+    } else {
+        return [];
+    }
+}
+
+function saveTasksToLocalStorage(tasks) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+tasks.forEach((task) => {
+    const taskListItem = document.createElement('li');
+    taskListItem.textContent = task;
+    const removeButton = document.createElement('button');
+    removeButton.textContent = "Remove";
+    removeButton.className = 'remove-btn';
+    removeButton.onclick = function () {
+        taskList.removeChild(taskListItem);
+        const taskIndex = tasks.indexOf(task);
+        if (taskIndex !== -1) {
+            tasks.splice(taskIndex, 1);
+        }
+        saveTasksToLocalStorage(tasks);
+    };
+    taskListItem.appendChild(removeButton);
+    taskListItem.appendChild(taskListItem);
+
+    
+});
